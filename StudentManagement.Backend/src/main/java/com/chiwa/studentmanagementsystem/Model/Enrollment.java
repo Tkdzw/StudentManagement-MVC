@@ -1,5 +1,6 @@
 package com.chiwa.studentmanagementsystem.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,10 +25,11 @@ public class Enrollment {
     private String grade;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "student_id")
+    @JsonIgnore
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "course_id")
     private Course course;
 }

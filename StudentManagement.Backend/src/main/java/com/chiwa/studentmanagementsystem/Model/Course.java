@@ -1,5 +1,6 @@
 package com.chiwa.studentmanagementsystem.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class Course {
     private String instructor;
 
     @OneToMany(mappedBy = "course") // Refers to the "course" field in Enrollment
+    @JsonIgnore
     private List<Enrollment> enrollments;  // List of enrollments for this course
     @ManyToMany(mappedBy = "courses")  // Lecturer side owns the relationship
     private List<Lecturer> lecturers;  // List of lecturers teaching this course

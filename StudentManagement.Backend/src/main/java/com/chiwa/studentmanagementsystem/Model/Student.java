@@ -32,6 +32,6 @@ public class Student {
     @Column(nullable = false)
     private int age;
 
-    @OneToMany(mappedBy = "student") // Refers to the "student" field in Enrollment
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Enrollment> enrollments;  // List of enrollments for this student
 }
