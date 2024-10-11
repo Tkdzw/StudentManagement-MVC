@@ -30,8 +30,11 @@ export class StudentsService {
     return this.http.put<any>(`${this.url}/student`, body, httpOptions );
   }
 
+  deleteStudent(id: number): any {
+    return this.http.delete<any>(`${this.url}/student/${id}`);
+  }
   getStudent(id: number): any {
-    return this.http.get<any>(`${this.url}/students/${id}`);
+    return this.http.get<any>(`${this.url}/student/${id}`);
   }
 
   getAllStudents(): any {

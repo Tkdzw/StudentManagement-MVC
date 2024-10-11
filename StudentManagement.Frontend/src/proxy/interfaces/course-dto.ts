@@ -10,3 +10,5 @@ export interface CourseDto {
     enrollments: EnrollmentDto[];
     lecturers: LecturerDto[];
 }
+
+export type updateStudentDto = Omit<CourseDto, 'enrollment'|'lecturers'>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { StudentDto } from 'src/proxy/interfaces/student-dto';
+import { StudentDto, updateStudentDto } from 'src/proxy/interfaces/student-dto';
 import { StudentsService } from 'src/proxy/services/students.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class StudentsComponent {
 
   student: StudentDto = {} as StudentDto;
 
-  studentUpdate: StudentDto = {} as StudentDto;
+  studentUpdate: updateStudentDto = {} as updateStudentDto;
 
   loading: boolean = true;
 
@@ -50,12 +50,19 @@ export class StudentsComponent {
     this.upadteModal = true;
   }
 
-  viewStudent(student: StudentDto){
+  viewStudent(student: StudentDto) {
 
   }
 
-  deleteStudent(student: StudentDto){
-
+  deleteStudent(student: StudentDto) {
+    this.studentsService.deleteStudent(student.id).subscribe((res: any) => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Students Deleted Successfully',
+        life: 3000
+      });
+    })
   }
 
   save() {

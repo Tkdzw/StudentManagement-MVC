@@ -14,8 +14,12 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                         loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) 
                     },
                     {
-                        path:'studentsmanagement',
+                        path:'students-management',
                         loadChildren: () => import('./students/students.module').then(m => m.StudentsModule)
+                    },
+                    {
+                        path:'setup',
+                        loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
                     },
                     { path: 'utilities', loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
                     { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },

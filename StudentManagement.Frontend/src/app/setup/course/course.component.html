@@ -1,0 +1,129 @@
+<div class="col-12">
+    <div class="card text-3xl font-semibold">
+        Course Management
+    </div>
+
+    <p-toast></p-toast>
+
+    <div class="card">
+        <p-table #dt1 [value]="courses" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
+            styleClass="p-datatable-gridlines" [paginator]="true"
+            [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between flex-column sm:flex-row">
+                    <button pButton label="Add New" class="p-button-outlined mb-2" icon="pi pi-plus"
+                        (click)="addNew()"></button>
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" #filter (input)="onGlobalFilter()" placeholder="Search Keyword"
+                            class="w-full" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Course Name
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Course Code
+                        </div>
+                    </th>
+
+                    <th style="min-width: 10rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Credit Hours
+                        </div>
+                    </th>
+                   
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-course>
+                <tr>
+                    <td>
+                        {{course.courseName}}
+                    </td>
+                    <td>
+                        {{course.courseCode}}
+                    </td>
+                    <td>
+                        {{course.creditHours}}
+                    </td>
+                    <td>
+                        <button pButton class="p-button-outlined p-button-success mb-2 mr-2" icon="pi pi-pencil" (click)="updateCourse(course)"></button>
+                        <button pButton class="p-button-outlined p-button-danger mb-2 mr-2" icon="pi pi-trash" (click)="deleteCourse(course)"></button>
+                        <button pButton class="p-button-outlined p-button-primary mb-2" icon="pi pi-eye" (click)="viewCourse(course)"></button>
+                    </td>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No customers found.</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="8">Loading customers data. Please wait.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>
+
+
+<!-- Add New course Modal -->
+<p-dialog [(visible)]="createModal" [style]="{width: '45%'}" header="New course" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="title">Course Name</label>
+            <input type="text" pInputText id="title" [(ngModel)]="course.courseName" required autofocus />
+        </div>
+        <div class="field">
+            <label for="title">Course Code</label>
+            <input type="text" pInputText id="title" [(ngModel)]="course.courseCode" required autofocus />
+        </div>
+        <div class="field">
+            <label for="title">Credit Hours</label>
+            <input type="text" pInputText id="title" [(ngModel)]="course.creditHours" required autofocus />
+        </div>
+       
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-rounded p-button-danger mr-2"
+            (click)="createModal=false"></button>
+        <button pButton pRipple label="Submit" icon="pi pi-save" class="p-button-rounded p-button-success mr-2"
+            (click)="save()"></button>
+    </ng-template>
+</p-dialog>
+
+
+<!-- Update course Modal -->
+<p-dialog [(visible)]="upadteModal" [style]="{width: '45%'}" header="Update course" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="title">Course Name</label>
+            <input type="text" pInputText id="title" [(ngModel)]="courseUpdate.courseName" required autofocus />
+        </div>
+        <div class="field">
+            <label for="title">Course Code</label>
+            <input type="text" pInputText id="title" [(ngModel)]="courseUpdate.courseCode" required autofocus />
+        </div>
+        <div class="field">
+            <label for="title">Credit Hours</label>
+            <input type="text" pInputText id="title" [(ngModel)]="courseUpdate.creditHours" required autofocus />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-rounded p-button-danger mr-2"
+            (click)="upadteModal=false"></button>
+        <button pButton pRipple label="Update" icon="pi pi-save" class="p-button-rounded p-button-success mr-2"
+            (click)="update()"></button>
+    </ng-template>
+</p-dialog>

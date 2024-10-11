@@ -10,3 +10,5 @@ export interface StudentDto {
   enrollments: EnrollmentDto[];
    
 }
+
+export type updateStudentDto = Omit<StudentDto, 'enrollments'>;
