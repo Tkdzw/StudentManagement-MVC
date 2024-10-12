@@ -1,1 +1,132 @@
-<p>lecturer works!</p>
+<div class="col-12">
+    <div class="card text-3xl font-semibold">
+        Lecturer Management
+    </div>
+
+    <p-toast></p-toast>
+
+    <div class="card">
+        <p-table #dt1 [value]="lecturers" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true"
+            styleClass="p-datatable-gridlines" [paginator]="true"
+            [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between flex-column sm:flex-row">
+                    <button pButton label="Add New" class="p-button-outlined mb-2" icon="pi pi-plus"
+                        (click)="addNew()"></button>
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" #filter (input)="onGlobalFilter()" placeholder="Search Keyword"
+                            class="w-full" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Firstname
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Lastname
+                        </div>
+                    </th>
+
+                    <th style="min-width: 10rem">
+                        <div class="flex justify-content-between align-items-center">
+                            Email
+                        </div>
+                    </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-lecturer>
+                <tr>
+                    <td>
+                        {{lecturer.firstName}}
+                    </td>
+                    <td>
+                        {{lecturer.lastName}}
+                    </td>
+                    <td>
+                        {{lecturer.email}}
+                    </td>
+                    <td>
+                        <button pButton class="p-button-outlined p-button-success mb-2 mr-2" icon="pi pi-pencil"
+                            (click)="updateLecturer(lecturer)"></button>
+                        <button pButton class="p-button-outlined p-button-danger mb-2 mr-2" icon="pi pi-trash"
+                            (click)="deleteLecturer(lecturer)"></button>
+                        <button pButton class="p-button-outlined p-button-primary mb-2" icon="pi pi-eye"
+                            (click)="viewLecturer(lecturer)"></button>
+                    </td>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No customers found.</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="8">Loading customers data. Please wait.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>
+
+
+<!-- Add New lecturer Modal -->
+<p-dialog [(visible)]="createModal" [style]="{width: '45%'}" header="New lecturer" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="title">Firstname</label>
+            <input type="text" pInputText id="title" [(ngModel)]="lecturer.firstName" required autofocus />
+        </div>
+        <div class="field">
+            <label for="title">Lastname</label>
+            <input type="text" pInputText id="title" [(ngModel)]="lecturer.lastName" required autofocus />
+        </div>
+        <div class="field">
+            <label for="title">Email</label>
+            <input type="text" pInputText id="title" [(ngModel)]="lecturer.email" required autofocus />
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-rounded p-button-danger mr-2"
+            (click)="createModal=false"></button>
+        <button pButton pRipple label="Submit" icon="pi pi-save" class="p-button-rounded p-button-success mr-2"
+            (click)="save()"></button>
+    </ng-template>
+</p-dialog>
+
+
+<!-- Update lecturer Modal -->
+<p-dialog [(visible)]="updateModal" [style]="{width: '45%'}" header="Update lecturer" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="title">Firstname</label>
+            <input type="text" pInputText id="title" [(ngModel)]="lecturerUpdate.firstName" required autofocus />
+        </div>
+        <div class="field">
+            <label for="title">Lastname</label>
+            <input type="text" pInputText id="title" [(ngModel)]="lecturerUpdate.lastName" required autofocus />
+        </div>
+        <div class="field">
+            <label for="title">Email</label>
+            <input type="text" pInputText id="title" [(ngModel)]="lecturerUpdate.email" required autofocus />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-rounded p-button-danger mr-2"
+            (click)="updateModal=false"></button>
+        <button pButton pRipple label="Update" icon="pi pi-save" class="p-button-rounded p-button-success mr-2"
+            (click)="update()"></button>
+    </ng-template>
+</p-dialog>

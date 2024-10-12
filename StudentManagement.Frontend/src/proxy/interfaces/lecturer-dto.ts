@@ -8,3 +8,5 @@ export interface LecturerDto {
     courses: CourseDto[];
 
 }
+
+export type updateLecturerDto = Omit<LecturerDto, 'courses'>;
